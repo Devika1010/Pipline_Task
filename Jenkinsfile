@@ -46,7 +46,7 @@ pipeline {
     success {
       emailext body: 'The pipeline has completed successfully.',
         subject: 'Pipeline success',
-        to: 'isivakumardevika028@gmail.com'
+        to: 'sivakumardevika028@gmail.com'
     }
   }
 }
