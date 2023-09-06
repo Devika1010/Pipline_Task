@@ -1,52 +1,66 @@
 pipeline {
-  agent any
-  
-  stages {
+    agent any
+
+    stages {
         stage('Build') {
-      steps {
-        echo "Fetch the source code from the directory path ${env.DIRECTORY_PATH}"
-        echo "Compile the code and generate any necessary artifacts"
-      }
+            steps {
+                // Use Maven to build the code
+                bat 'mvn clean package'
+            }
+        }
+        stage('Unit and Integration Tests') {
+            steps {
+                // Run unit tests (modify the command as needed)
+                bat 'mvn test'
+
+                // Run integration tests (modify the command as needed)
+                bat 'mvn integration-test'
+            }
+        }
+        stage('Code Analysis') {
+            steps {
+                // Integrate code analysis tool (e.g., SonarQube)
+                bat 'sonar-scanner'
+            }
+        }
+        stage('Security Scan') {
+            steps {
+                // Perform security scan (replace with your security scanning tool)
+                bat 'security-scan-command'
+            }
+        }
+        stage('Deploy to Staging') {
+            steps {
+                // Deploy to staging environment (e.g., AWS EC2 instance)
+                bat 'deploy-to-staging-command'
+            }
+        }
+        stage('Integration Tests on Staging') {
+            steps {
+                // Run integration tests on the staging environment
+                bat 'run-integration-tests-on-staging'
+            }
+        }
+        stage('Deploy to Production') {
+            steps {
+                // Deploy to production environment (e.g., AWS EC2 instance)
+                bat 'deploy-to-production-command'
+            }
+        }
     }
-    
-    stage('Test') {
-      steps {
-        echo "Unit tests"
-        echo "Integration tests"
-      }
+
+    post {
+        failure {
+            // Send email notification on pipeline failure
+            emailext subject: "Pipeline Failed",
+                body: "The Jenkins pipeline has failed. Please investigate.",
+                to: 'sivakumardevika028@gmail.com'
+        }
+        success {
+            // Send email notification on pipeline success
+            emailext subject: "Pipeline Successful",
+                body: "The Jenkins pipeline has completed successfully.",
+                to: 'sivakumardevika028@gmail.com'
+        }
     }
-    
-    stage('Code Quality Check') {
-      steps {
-        echo "Checking the quality of the code"
-      }
-    }
-    
-    stage('Deploy') {
-      steps {
-        echo "Deploying the application to ${env.TESTING_ENVIRONMENT} environment"
-       
-      }
-    }
-    stage('Approval') {
-      steps {
-        sleep 10
-      }
-    }
-    
-    
-    
-    stage('Deploy to Production') {
-      steps {
-        echo "Deploying the code to the ${env.PRODUCTION_ENVIRONMENT} environment"
-      }
-       }
-  }
-  post {
-    success {
-      emailext body: 'The pipeline has completed successfully.',
-        subject: 'Pipeline success',
-        to: 'sivakumardevika028@gmail.com'
-    }
-  }
 }
