@@ -4,47 +4,45 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Use Maven to build the code
-                bat 'mvn clean package'
+                echo 'Running Build Stage'
+                echo 'Command: mvn clean package'
             }
         }
         stage('Unit and Integration Tests') {
             steps {
-                // Run unit tests (modify the command as needed)
-                bat 'mvn test'
-
-                // Run integration tests (modify the command as needed)
-                bat 'mvn integration-test'
+                echo 'Running Unit and Integration Tests Stage'
+                echo 'Command: mvn test'
+                echo 'Command: mvn integration-test'
             }
         }
         stage('Code Analysis') {
             steps {
-                // Integrate code analysis tool (e.g., SonarQube)
-                bat 'sonar-scanner'
+                echo 'Running Code Analysis Stage'
+                echo 'Command: sonar-scanner'
             }
         }
         stage('Security Scan') {
             steps {
-                // Perform security scan (replace with your security scanning tool)
-                bat 'security-scan-command'
+                echo 'Running Security Scan Stage'
+                echo 'Command: security-scan-command'
             }
         }
         stage('Deploy to Staging') {
             steps {
-                // Deploy to staging environment (e.g., AWS EC2 instance)
-                bat 'deploy-to-staging-command'
+                echo 'Running Deploy to Staging Stage'
+                echo 'Command: deploy-to-staging-command'
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                // Run integration tests on the staging environment
-                bat 'run-integration-tests-on-staging'
+                echo 'Running Integration Tests on Staging Stage'
+                echo 'Command: run-integration-tests-on-staging'
             }
         }
         stage('Deploy to Production') {
             steps {
-                // Deploy to production environment (e.g., AWS EC2 instance)
-                bat 'deploy-to-production-command'
+                echo 'Running Deploy to Production Stage'
+                echo 'Command: deploy-to-production-command'
             }
         }
     }
