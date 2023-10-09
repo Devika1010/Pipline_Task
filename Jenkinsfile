@@ -52,7 +52,7 @@ pipeline {
             // Send email notification on pipeline failure
             emailext attachLog: true,
              subject: "Pipeline Failed",
-                body: "The Jenkins pipeline has failed.",
+                body: "The Jenkins pipeline has failed.Check it",
                 to: 'sivakumardevika028@gmail.com'
         }
         success {
